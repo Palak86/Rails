@@ -7,17 +7,17 @@ class CartsController < ApplicationController
 
     @cart = current_buyer.cart # Assuming the cart is associated with the current_user
 
-    # Default sorting by price (ascending)
-    if params[:sort] == 'name'
-      @cart_items = @cart.cart_items.includes(:product).order('products.name ASC')
-    elsif params[:sort] == 'price_desc'
-      @cart_items = @cart.cart_items.includes(:product).order('products.price DESC')
-    elsif params[:sort] == 'quantity'
-      @cart_items = @cart.cart_items.includes(:product).order('cart_items.quantity DESC')
-    else
-      # Default sorting by price (ascending)
+    # # Default sorting by price (ascending)
+    # if params[:sort] == 'name'
+    #   @cart_items = @cart.cart_items.includes(:product).order('products.name ASC')
+    # elsif params[:sort] == 'price_desc'
+    #   @cart_items = @cart.cart_items.includes(:product).order('products.price DESC')
+    # elsif params[:sort] == 'quantity'
+    #   @cart_items = @cart.cart_items.includes(:product).order('cart_items.quantity DESC')
+    # else
+    #   # Default sorting by price (ascending)
       @cart_items = @cart.cart_items.includes(:product).order('products.price ASC')
-    end
+    
   end
   # def add_product
   #   @product = Product.find(params[:product_id])

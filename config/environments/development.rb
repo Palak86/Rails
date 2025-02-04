@@ -9,6 +9,25 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # config/environments/development.rb
+
+
+  config.action_mailer.default_url_options = { host: 'localhost:3000' } #here for local you can set localhost:3000 and for production you can set actual your host i.e website.com
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'website.com', # Remove trailing ‘/’
+    user_name: 'papatel@bestpeers.com', # Replace with your Gmail email
+    password: 'mhpg pbge nohs pqql', # Replace with the App Password you generated
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    open_timeout: 5,
+    read_timeout: 5
+  }
+  # config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.perform_deliveries = true
+
   # Show full error reports.
   config.consider_all_requests_local = true
 

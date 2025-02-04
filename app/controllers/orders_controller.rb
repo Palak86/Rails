@@ -27,10 +27,19 @@ class OrdersController < ApplicationController
 
 
   def create
-    @cart= Cart.find_by(params[:order][:cart_id])
+    @cart=current_buyer.cart
+    # @cart= Cart.find_by(params[:order][:cart_id])
+
     
-    @order = @cart.orders.create(buyer: @cart.buyer, **order_params)
-      if @order.save
+    @order = @cart.orders.create(buyer_id: @cart.buyer_id, **order_params)
+    
+    OrderMailer.with(order: @order).welcome_email.deliver_now
+
+    # OrderMailer.welcome_email.deliver_now
+
+
+    if @order.present?
+        
       @cart.products.delete_all
       
       flash[:notice] = "order has been placed."
@@ -39,6 +48,18 @@ class OrdersController < ApplicationController
       redirect_to new_order_path
     end
       
+    # @cart= Cart.find_by(params[:order][:cart_id])
+    
+    # @order = @cart.orders.create(order_params)
+    # if @order.save
+    #   @cart.products.delete_all
+      
+    #   flash[:notice] = "order has been placed."
+    #   redirect_to products_path
+    # else 
+    #   redirect_to new_order_path
+    #end
+
   end
   
     private

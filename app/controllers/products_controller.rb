@@ -15,12 +15,6 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
     @categories = Category.all 
-
-    if params[:search].present?
-      @products = Product.where('name LIKE ?', "%#{params[:search]}%")
-                         .or(Product.where('description LIKE ?', "%#{params[:search]}%"))
-                         
-    end
   end
 
   # GET /products/1 or /products/1.json
