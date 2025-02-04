@@ -1,0 +1,71 @@
+
+<% content_for :title, "Shopping Cart" %>
+
+<!-- Page Title -->
+<h1 class="text-center my-4">Your Shopping Cart</h1>
+
+<% if @cart_items.any? %>
+  <div class="container">
+    <div class="row">
+      <!-- Cart Items List -->
+      <div class="col-12">
+        <ul class="list-group">
+          <% @cart_items.each do |item| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <!-- Product Info -->
+              <div>
+                <h5 class="mb-1"><%= item.product.name %></h5>
+                <p class="mb-1">Quantity: <%= item.quantity %></p>
+                <p class="mb-1">Price: <%= number_to_currency(item.product.price * item.quantity) %></p>
+              </div>
+
+              <%= button_to 'Decrement Quantity', decrement_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
+
+              <!-- Remove Item Button -->
+              <%= button_to 'Remove from Cart', cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :delete, data: { confirm: 'Are you sure you want to remove this item from your cart?' }, class: 'btn btn-outline-danger btn-sm ms-2' %>
+            </li>
+          <% end %>
+        </ul>
+
+        <div class="mt-4">
+          <h3 class="text-end">Total Price: <%= number_to_currency(@cart.total_price) %></h3>
+        </div>
+<span>
+        <div class="d-flex justify-content-end mt-3">
+          <%= button_to "Place order", new_order_path, method: :get, class: "btn btn-success" %>
+
+        </div>
+
+        <div class="d-flex justify-content-start mt-3">
+    
+    <%= link_to 'Shop Now', products_path, class: 'btn btn-primary' %>
+  </div>
+  </span>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <div class="text-center">
+    <p>Your cart is empty. Start shopping now!</p>
+    <%= link_to 'Shop Now', products_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<!-- Flash Notice -->
+<% if flash[:notice] %>
+  <div class="alert alert-info mt-4" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<!-- Order Confirmation -->
+<% if @order %>
+  <div class="alert alert-success mt-4" role="alert">
+    <h4>Your order has been placed successfully!</h4>
+  </div>
+<% end %>
+
+
+
+

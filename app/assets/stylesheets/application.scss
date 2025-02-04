@@ -1,0 +1,68 @@
+// Sassy
+@import "bootstrap";
+  
+/* Custom Styles for the Sign-Up Form */
+/* Business-Oriented Form Styles */
+.form-signup {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;  /* Clean white background for professionalism */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+  }
+  
+  h2.text-dark {
+    font-size: 2rem;
+    color: #333333; /* Dark color for text */
+  }
+  
+  .form-label {
+    font-weight: 500;
+    color: #6c757d; /* Soft gray color for the labels */
+  }
+  
+  .form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ced4da; /* Light border color */
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .form-control:focus {
+    border-color: #495057; /* Darker border when focused */
+    box-shadow: 0 0 5px rgba(72, 80, 92, 0.5); /* Subtle focus glow effect */
+  }
+  
+  .btn-dark {
+    background-color: #343a40; /* Dark button for a business look */
+    border-color: #343a40;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .btn-dark:hover {
+    background-color: #23272b; /* Slightly darker on hover */
+    border-color: #1d2124;
+  }
+  
+  .small.form-text.text-muted {
+    font-style: italic;
+    color: #6c757d;  /* Muted gray for less emphasis */
+  }
+  
+  .container {
+    max-width: 600px;
+    margin-top: 60px; /* Give some space from the top */
+  }
+  
+  @media (max-width: 576px) {
+    .form-signup {
+      padding: 20px;
+    }
+    h2.text-dark {
+      font-size: 1.5rem;
+    }
+  }
+  

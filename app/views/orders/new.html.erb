@@ -1,0 +1,22 @@
+<h2>Enter Your Shipping Address</h2>
+
+<%= form_with model: @order, method: :post do |f| %>
+  <div>
+    <%= f.label :address, "Address" %>
+    <%= f.text_area :address, rows: 3, required: true %>
+  </div>
+  
+  <div>
+    <%= f.label :city, "City" %>
+    <%= f.text_field :city, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :zipcode, "Zip Code" %>
+    <%= f.text_field :zipcode, required: true %>
+  </div>
+
+  <div>
+    <%= f.submit "Place Order", class: "btn btn-primary" %>
+  </div>
+<% end %>
