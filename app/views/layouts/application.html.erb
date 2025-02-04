@@ -58,14 +58,20 @@
     <li class="nav-item">
       <a class="nav-link" href="/products/:id/profile">Profile</a>
     </li>
+
+    <% if current_buyer&.role == "admin" %>
+      <a class="nav-link" href="/buyers">Profile</a>
+    <% end %>
         
   <% end %>
 
-   <% if buyer_signed_in? %>
+  <% if buyer_signed_in? %>
     <%= button_to "Sign Out", destroy_buyer_session_path, method: :delete, class: "btn btn-outline-danger ms-2" %>
   <% end %>
-        
-      </ul>
+    
+      
+  
+  </ul>
 
       <%= form_with(url: products_path, method: :get, local: true, class: "d-flex") do %>
       
@@ -78,8 +84,7 @@
     </div>
   </div>
 </nav>
-   <p class="notice"><%= notice %></p> 
-   <p class="alert"><%= alert %></p> 
+
     <%= yield %>
   </body>
 </html>
