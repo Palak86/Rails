@@ -19,12 +19,29 @@
               <div>
                 <h5 class="mb-1"><%= item.product.name %></h5>
                 <p class="mb-1">Quantity: </p>
+              
                 <p class="mb-1">Price: <%= number_to_currency(item.product.price * item.quantity) %></p>
+                <%if item.present?%>
+                  
+                    <%if item.quantity >= item.product.stock %>
+                      <p class="card-text alert alert-danger">only <%=item.quantity%> left</p>
+                      <% if item.product.stock==0 %>
+                        <p class="card-text alert alert-danger">Product out of stock</p>
+
+                  <%end%>
+                <%end%>
+                <%end%>
+     
               </div>
 
               <%= button_to '-', decrement_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
               <p class="mb-1"><%= item.quantity %></p>
+            <% if item.product.stock==0 || item.quantity >= item.product.stock %>
+               <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2', disabled: true %>
+            <%else%>
               <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
+            <%end%>
+
 
               <%= button_to 'Remove from Cart', cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :delete, data: { confirm: 'Are you sure you want to remove this item from your cart?' }, class: 'btn btn-outline-danger btn-sm ms-2' %>
             </li>
@@ -35,11 +52,12 @@
           <h3 class="text-end">Total Price: <%= number_to_currency(@cart.total_price) %></h3>
         </div>
 <span>
+
+    
         <div class="d-flex justify-content-end mt-3">
           <%= button_to "Place order", new_order_path, method: :get, class: "btn btn-success" %>
 
         </div>
-
         <div class="d-flex justify-content-start mt-3">
     
   </div>

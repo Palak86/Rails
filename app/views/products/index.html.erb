@@ -54,9 +54,14 @@
             <h5 class="card-title text-truncate"><%= product.name %></h5>
                         <p class="card-text"><%= product.description %></p>
 
+               <p class="card-text">Stock: <%= product.stock %></p>
 
-            <p class="card-text">$<%= product.price %></p>
+            <p class="card-text">Price: $<%= product.price %></p>
             
+            <% if product.stock==0 %>
+              <p class="card-text alert alert-danger">Product out of stock</p>
+            <% end %>
+
             <%= button_to 'show', product_path(product), method: :get, class: 'btn btn-primary w-100'%>
 
           </div>
@@ -81,10 +86,16 @@
           <div class="card-body">
             <h5 class="card-title text-truncate"><%= product.name %></h5>
                         <p class="card-text"><%= product.description %></p>
+                        <p class="card-text">Stock: <%= product.stock %></p>
+                        <p class="card-text">Price: $<%= product.price %></p>
 
+                        <% if product.stock==0 %>
+                          <p class="card-text alert alert-danger">Product out of stock</p>
+                          <%= button_to 'Add to Cart', add_to_cart_product_path(product), method: :post, class: "btn btn-primary w-100", disabled: true %>
+                        <% else %>
+                          <%= button_to 'Add to Cart', add_to_cart_product_path(product), method: :post, class: "btn btn-primary w-100" %>
+                        <% end %>
 
-            <p class="card-text">$<%= product.price %></p>
-            <%= button_to 'Add to Cart', add_to_cart_product_path(product), method: :post, class: "btn btn-primary w-100" %>
             <br>
 
           </div>
