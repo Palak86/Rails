@@ -8,6 +8,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
       if @category.save
+        flash[:notice] = "Category is sucessfully created"
         redirect_to products_path
       end
     

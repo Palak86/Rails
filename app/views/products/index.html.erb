@@ -1,11 +1,5 @@
 <% content_for :title, "Products" %>
 
-<% if notice %>
-  <div class="alert alert-success" role="alert">
-    <%= notice %>
-  </div>
-<% end %>
-
 <div class="d-flex justify-content-end mb-3">
   <% if current_buyer&.role == "admin" %>
     <%= link_to "Add New Product", new_product_path, class: "btn btn-outline-warning ms-2" %>

@@ -12,10 +12,11 @@ class OrdersController < ApplicationController
     @cart=current_buyer.cart
     @order = @cart.orders.create(buyer_id: @cart.buyer_id, **order_params)
     OrderMailer.with(order: @order).welcome_email.deliver_now
+    flash[:notice] = "order has been placed."
+
 
     if @order.present?
       @cart.products.delete_all
-      flash[:notice] = "order has been placed."
       redirect_to products_path
     else 
       redirect_to new_order_path
