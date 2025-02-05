@@ -23,11 +23,12 @@
         
         <div class="mb-3">
           <%= f.label :zipcode, "Zip Code", class: "form-label" %>
-          <%= f.text_field :zipcode, class: "form-control shadow-sm", required: true, placeholder: "Enter your zip code" %>
+          <%= f.text_field :zipcode, class: "form-control shadow-sm", required: true, placeholder: "Enter your zip code", pattern: "^[0-9]{6,6}$", title: "Zip code must be exactly 6 digits" %>
           <div class="invalid-feedback">
-            Please provide a valid zip code.
-          </div>
+          Please provide a valid zip code.
         </div>
+  </div>
+
         
         <div class="d-grid gap-2">
           <%= f.submit "Place Order", class: "btn btn-primary btn-lg" %>

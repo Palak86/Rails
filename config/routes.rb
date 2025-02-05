@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :buyers, controllers: {
     registrations: "buyers/registrations",
-    session: "buyers/session"
+    sessions: "buyers/sessions"
   }
   
   resources :products do
@@ -10,11 +10,18 @@ Rails.application.routes.draw do
     get 'profile' 
    end
   end
+  
+  resources :categories, only: [:new, :create]
 
   resources :carts, only: [:show] do
     resources :cart_items, only: [:destroy] do
-      patch 'decrement', on: :member  # This creates the /cart/cart_items/:id/decrement route
+      member do
+        patch 'decrement'
+        patch 'increment'
+        #do
+      #patch 'decrement', on: :member  # This creates the /cart/cart_items/:id/decrement route
     end
+  end
   end
 
   devise_for :sellers, controllers: {

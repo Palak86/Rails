@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
   def add_to_cart
     product = Product.find(params[:id])
     cart = current_buyer.cart || current_buyer.create_cart
-
+  
     cart_item = cart.cart_items.find_by(product: product)
     if cart_item
       cart_item.increment!(:quantity)
@@ -28,9 +28,9 @@ class ProductsController < ApplicationController
       cart.cart_items.create(product: product, quantity: 1)
     end
     flash[:notice] = "Product added to cart"
-  redirect_to cart_path
+    redirect_to cart_path
   end
-
+  
   def new
     @product = Product.new
   end

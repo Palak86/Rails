@@ -1,42 +1,90 @@
-<%= form_with(model: product) do |form| %>
-  <% if product.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<%= form_with(model: product, html: { class: "container mt-5", id: "product-form" }) do |form| %>
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <% if product.errors.any? %>
+        <div class="alert alert-danger">
+          <h4><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h4>
+          <ul>
+            <% product.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-      <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+      <div class="card shadow-sm p-4">
+        <h2 class="text-center mb-4">Create a New Product</h2>
+
+        <div class="form-group mb-3">
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, class: "form-control", placeholder: "Enter product name", required: true, minlength: 3, title: "Name must be at least 3 characters long" %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= form.label :description, class: "form-label" %>
+          <%= form.text_area :description, class: "form-control", placeholder: "Enter product description", rows: 4, required: true, minlength: 10, title: "Description must be at least 10 characters long" %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= form.label :price, class: "form-label" %>
+          <%= form.number_field :price, class: "form-control", placeholder: "Enter product price", required: true, min: 0.01, step: 0.01, title: "Price must be a number greater than 0" %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= form.label :image, class: "form-label" %>
+          <%= form.file_field :image, class: "form-control" %>
+        </div>
+
+        <div class="form-group mb-3">
+          <%= form.label :category_id, "Filter by Category", class: "form-label" %>
+          <%= form.select :category_id, options_from_collection_for_select(@categories, :id, :name, @categories.first&.id), class: "form-control" %>
+        </div>
+
+        <div class="form-group text-center">
+          <%= form.submit "Save Product", class: "btn btn-primary btn-lg" %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <p>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </p>
- 
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
-
-  <p>
-    <%= form.label :price %><br>
-    <%= form.number_field :price %>
-  </p>
-  
-  <p>
-    <%= form.label :image %>
-    <%= form.file_field :image %>
-  </p>
-  
-  <p>
-    <%= form.label :category_id, "Filter by Category" %>
-    <%= form.select :category_id, options_from_collection_for_select(@categories, :id, :name, params[:category_id]), prompt: "Select a Category", class: "form-control" %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
+  </div>
 <% end %>
+
+<script>
+  // Custom JavaScript to handle the front-end validation
+  document.getElementById("product-form").addEventListener("submit", function(event) {
+    const form = event.target;
+    
+    // Check if all required fields are filled out
+    const name = form.querySelector('[name="product[name]"]');
+    const description = form.querySelector('[name="product[description]"]');
+    const price = form.querySelector('[name="product[price]"]');
+    
+    // Show custom error messages if validation fails
+    let isValid = true;
+
+    if (!name.value.trim()) {
+      isValid = false;
+      name.setCustomValidity("Product name is required and must be at least 3 characters long.");
+    } else {
+      name.setCustomValidity('');
+    }
+
+    if (!description.value.trim()) {
+      isValid = false;
+      description.setCustomValidity("Product description is required and must be at least 10 characters long.");
+    } else {
+      description.setCustomValidity('');
+    }
+
+    if (!price.value || price.value <= 0) {
+      isValid = false;
+      price.setCustomValidity("Price must be greater than 0.");
+    } else {
+      price.setCustomValidity('');
+    }
+
+    if (!isValid) {
+      event.preventDefault(); // Prevent form submission if validation fails
+      form.reportValidity(); // Show validation messages
+    }
+  });
+</script>

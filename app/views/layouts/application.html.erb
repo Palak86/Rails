@@ -36,12 +36,14 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/products">Home</a>
         </li>
-        <li class="nav-item">
+        <% if current_buyer&.role == "buyer" %>
+         <li class="nav-item">
           <a class="nav-link" href="/carts/:id">Cart</a>
-        </li>
+         </li>
+        <%end%>
 
 
-        <% if !current_buyer %>
+  <% if !current_buyer %>
     <li class="nav-item">
           <a class="nav-link" href="/buyers/sign_up">Sign Up</a>
         </li>
@@ -51,17 +53,15 @@
   <% end %>
 
 <% if current_buyer %>
+<% if current_buyer&.role == "buyer" %>
     <li class="nav-item">
           <a class="nav-link" href="/orders">Orders</a>
         </li>
+  <%end%>
 
     <li class="nav-item">
       <a class="nav-link" href="/products/:id/profile">Profile</a>
     </li>
-
-    <% if current_buyer&.role == "admin" %>
-      <a class="nav-link" href="/buyers">Profile</a>
-    <% end %>
         
   <% end %>
 

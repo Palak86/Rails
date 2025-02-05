@@ -19,6 +19,7 @@
               </div>
 
               <%= button_to 'Decrement Quantity', decrement_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
+              <%= button_to 'Increment Quantity', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
 
               <!-- Remove Item Button -->
               <%= button_to 'Remove from Cart', cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :delete, data: { confirm: 'Are you sure you want to remove this item from your cart?' }, class: 'btn btn-outline-danger btn-sm ms-2' %>
@@ -37,7 +38,6 @@
 
         <div class="d-flex justify-content-start mt-3">
     
-    <%= link_to 'Shop Now', products_path, class: 'btn btn-primary' %>
   </div>
   </span>
       </div>
