@@ -10,10 +10,10 @@
 categories = [
   { name: "skincare"},
   { name: "makeup"},
-  { name: "haircare"}
+  { name: "haircare"},
   { name: "personal care"},
   { name: "fragnance"},
-  { name: "wellness"}
+  { name: "wellness"},
   { name: "accessories"},
   { name: "mom & baby"},
 ]
