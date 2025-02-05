@@ -14,9 +14,9 @@ class OrdersController < ApplicationController
     OrderMailer.with(order: @order).welcome_email.deliver_now
 
     if @order.present?
-        @cart.products.delete_all
-        flash[:notice] = "order has been placed."
-        redirect_to products_path
+      @cart.products.delete_all
+      flash[:notice] = "order has been placed."
+      redirect_to products_path
     else 
       redirect_to new_order_path
     end

@@ -49,16 +49,13 @@
 <% end %>
 
 <script>
-  // Custom JavaScript to handle the front-end validation
   document.getElementById("product-form").addEventListener("submit", function(event) {
     const form = event.target;
     
-    // Check if all required fields are filled out
     const name = form.querySelector('[name="product[name]"]');
     const description = form.querySelector('[name="product[description]"]');
     const price = form.querySelector('[name="product[price]"]');
     
-    // Show custom error messages if validation fails
     let isValid = true;
 
     if (!name.value.trim()) {
@@ -83,8 +80,8 @@
     }
 
     if (!isValid) {
-      event.preventDefault(); // Prevent form submission if validation fails
-      form.reportValidity(); // Show validation messages
+      event.preventDefault();
+      form.reportValidity();
     }
   });
 </script>
