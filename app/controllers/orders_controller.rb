@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
 
   def index
+
     @orders = current_buyer.orders
+    @all_products = current_buyer.orders.map(&:products).flatten
   end
   
   def new
@@ -16,7 +18,8 @@ class OrdersController < ApplicationController
 
 
     if @order.present?
-      @cart.products.delete_all
+      @cart.update(status:'inactive')
+      #@cart.products.delete_all
       redirect_to products_path
     else 
       redirect_to new_order_path

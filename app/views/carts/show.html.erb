@@ -2,7 +2,7 @@
 
 <h1 class="text-center my-4">Your Shopping Cart</h1>
 
-<% if @cart_items.any? %>
+<% if @cart_items&.any? && @cart.status == 'active' %>
   <div class="container">
     <div class="row">
       <!-- Cart Items List -->
