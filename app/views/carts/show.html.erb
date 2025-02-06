@@ -1,18 +1,9 @@
+
 <% content_for :title, "Shopping Cart" %>
 
 <h1 class="text-center my-4">Your Shopping Cart</h1>
-  
-  <% if @cart_items == nil %>
-  <div class="container mt-5">
-  
-  <div class="alert alert-warning text-center" role="alert">
-    <h4 class="alert-heading">Your cart is empty</h4>
-    <p>It looks like you haven’t added anything to your cart yet. Start shopping now!</p>
-    <hr>
-    <a href="/products" class="btn btn-primary">Shop Now</a>
-  </div>
-</div>
- <% elsif @cart_items.any? %>
+ 
+<% if @cart_items.any? %>
   <div class="container">
     <div class="row">
       <!-- Cart Items List -->
@@ -40,11 +31,8 @@
 
               <%= button_to '-', decrement_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
             <% if item.product.stock==0 || item.quantity >= item.product.stock %>
-              <p class="mb-1"><%= item.product.stock %></p>
-            <%else%>
-              <p class="mb-1"><%= item.quantity %></p>
-            <%end%>
-            <% if item.product.stock==0 || item.quantity >= item.product.stock %>
+                          <p class="mb-1"><%= item.product.stock %></p>
+
                <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2', disabled: true %>
             <%else%>
               <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
@@ -64,7 +52,6 @@
     
         <div class="d-flex justify-content-end mt-3">
           <%= button_to "Place order", new_order_path, method: :get, class: "btn btn-success" %>
-
         </div>
         <div class="d-flex justify-content-start mt-3">
     
