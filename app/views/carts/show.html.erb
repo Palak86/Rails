@@ -1,62 +1,72 @@
-
 <% content_for :title, "Shopping Cart" %>
 
 <h1 class="text-center my-4">Your Shopping Cart</h1>
- 
+
 <% if @cart_items.any? %>
   <div class="container">
     <div class="row">
       <!-- Cart Items List -->
       <div class="col-12">
-        <ul class="list-group">
-          <% @cart_items.each do |item| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="mb-1"><%= item.product.name %></h5>
-                <p class="mb-1">Quantity: </p>
-              
-                <p class="mb-1">Price: <%= number_to_currency(item.product.price * item.quantity) %></p>
-                <%if item.present?%>
-                  
-                    <%if item.quantity >= item.product.stock %>
-                      <p class="card-text alert alert-danger">only <%=item.product.stock%> left</p>
-                      <% if item.product.stock==0 %>
-                        <p class="card-text alert alert-danger">Product out of stock</p>
-
-                  <%end%>
-                <%end%>
-                <%end%>
-     
-              </div>
-
-              <%= button_to '-', decrement_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
-            <% if item.product.stock==0 || item.quantity >= item.product.stock %>
-                          <p class="mb-1"><%= item.product.stock %></p>
-
-               <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2', disabled: true %>
-            <%else%>
-              <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm ms-2' %>
-            <%end%>
-
-
-              <%= button_to 'Remove from Cart', cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :delete, data: { confirm: 'Are you sure you want to remove this item from your cart?' }, class: 'btn btn-outline-danger btn-sm ms-2' %>
-            </li>
-          <% end %>
-        </ul>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cart_items.each do |item| %>
+                <tr>
+                  <td>
+                    <% if item.product.image.attached? %>
+                      <%= image_tag item.product.image, class: 'img-thumbnail', size: '100x100' %>
+                    <% else %>
+                      <p>No image available</p>
+                    <% end %>
+                  </td>
+                  <td>
+                    <h5 class="mb-1"><%= item.product.name %></h5>
+                    <% if item.quantity >= item.product.stock %>
+                      <p class="text-danger">Only <%= item.product.stock %> left</p>
+                    <% end %>
+                    <% if item.product.stock == 0 %>
+                      <p class="text-danger">Out of stock</p>
+                    <% end %>
+                  </td>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <%= button_to '-', decrement_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm' %>
+                    <% if item.product.stock == 0 || item.quantity >= item.product.stock %>
+                      <p class="mx-3"><%= item.quantity %></p>
+                      <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm', disabled: true %>
+                    <% else %>
+                      <p class="mx-3"><%= item.quantity %></p>
+                      <%= button_to '+', increment_cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :patch, class: 'btn btn-outline-warning btn-sm' %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <p><%= number_to_currency(item.product.price * item.quantity) %></p>
+                  </td>
+                  <td>
+                    <%= button_to 'Remove', cart_cart_item_path(cart_id: @cart.id, id: item.id), method: :delete, data: { confirm: 'Are you sure you want to remove this item from your cart?' }, class: 'btn btn-outline-danger btn-sm' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
 
         <div class="mt-4">
           <h3 class="text-end">Total Price: <%= number_to_currency(@cart.total_price) %></h3>
         </div>
-<span>
 
-    
+        <% disabled = @cart_items.any? { |item| item.product.stock == 0 } %>
         <div class="d-flex justify-content-end mt-3">
-          <%= button_to "Place order", new_order_path, method: :get, class: "btn btn-success" %>
+          <%= button_to "Place order", new_order_path, method: :get, class: "btn btn-success", disabled: disabled %>
         </div>
-        <div class="d-flex justify-content-start mt-3">
-    
-  </div>
-  </span>
       </div>
     </div>
   </div>
@@ -67,9 +77,3 @@
     <%= link_to 'Shop Now', products_path, class: 'btn btn-primary' %>
   </div>
 <% end %>
-
-
-
-
-
-
