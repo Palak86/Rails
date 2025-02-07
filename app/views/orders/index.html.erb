@@ -1,8 +1,7 @@
 
 <h1 class="text-center my-4">orders</h1>
 
-<% if @orders.any? %>
-
+<% if @all_products.any? %>
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -13,39 +12,30 @@
                 <th scope="col">Image</th>
                 <th scope="col">Product</th>
                 <th scope="col">Price</th>
-                <th scope="col">Order id</th>
+                <th scope="col">Quantity</th>
               </tr>
             </thead>
             <tbody>
-            <% @orders.each do |order| %>
-              
-
-              <% order.products.each do |product| %>
-                <tr>
-
-                  <td>
-                    <% if product.image.attached? %>
-                      <%= image_tag product.image, class: 'img-thumbnail', size: '100x100' %>
-                    <% else %>
-                      <p>No image available</p>
-                    <% end %>
-                  </td>
-                  <td>
-                    <h5 class="mb-1"><%= product.name %></h5>
-                  </td>
-                  <td>
-                    <h5 class="mb-1"><%= product.price %></h5>
-                  </td>
-                  <td>
-                    <h5 class="mb-1"><%= order.id %></h5>
-                  </td>
-                  </tr>
-              <% end %>
-                              
-
+            <% @all_products.each do |order| %>
+              <tr>
+                <td>
+                  <% if order["image_url"].present? %>
+                    <%= image_tag order["image_url"], class: 'img-thumbnail', size: '100x100' %>
+                  <% else %>
+                    <p>No image available</p>
+                  <% end %>
+                </td>
+                <td>
+                  <h5 class="mb-1"><%= order["product_name"] %></h5>
+                </td>
+                <td>
+                  <h5 class="mb-1"><%= order["price"] %></h5>
+                </td>
+                <td>
+                  <h5 class="mb-1"><%= order["quantity"] %></h5>
+                </td>
+              </tr>
             <% end %>
-            
-              
             </tbody>
           </table>
         </div>
@@ -56,4 +46,3 @@
 <%else%>
 <p>No orders found.</p>
 <%end%>
-

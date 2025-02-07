@@ -2,8 +2,9 @@ class CategoriesController < ApplicationController
   def new
     @category = Category.new
   end
-
+  
   def create
+    binding.pry
     
     @category = Category.new(category_params)
 
