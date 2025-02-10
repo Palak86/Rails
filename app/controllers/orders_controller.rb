@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
   def create
     @cart=current_buyer.cart
     @order = @cart.orders.create(buyer_id: @cart.buyer_id, **order_params)
-   #OrderMailer.with(order: @order).welcome_email.deliver_now
+  #  OrderMailer.with(order: @order).welcome_email.deliver_now
     flash[:notice] = "order has been placed."
 
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "payments/new"
+  get "payments/create"
   devise_for :buyers, controllers: {
     registrations: "buyers/registrations",
     sessions: "buyers/sessions"
@@ -11,6 +13,9 @@ Rails.application.routes.draw do
    end
   end
   
+  resources :payments, only: [:new, :create]
+
+
   resources :categories, only: [:new, :create]
 
   resources :carts, only: [:show] do

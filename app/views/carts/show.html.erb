@@ -64,8 +64,9 @@
 
         <% disabled = @cart_items.any? { |item| item.product.stock == 0 } %>
         <div class="d-flex justify-content-end mt-3">
-          <%= button_to "Place order", new_order_path, method: :get, class: "btn btn-success", disabled: disabled %>
+          <%= button_to "Place order", new_payment_path, method: :get, class: "btn btn-success", disabled: disabled %>
         </div>
+
       </div>
     </div>
   </div>
