@@ -9,26 +9,41 @@ class PaymentsController < ApplicationController
 
   def create
     begin
+      
+      customer = Stripe::Customer.create({
+      name: current_buyer.name, 
+      email: current_buyer.email,
+      # metadata: {
+      #   user_id: current_buyer.id
+      # }
+    })
+
       payment_intent = Stripe::PaymentIntent.create({
-        amount: @cart.total_price, 
-        currency: 'usd',
-        payment_method: params[:payment_method_id],
-        confirmation_method: 'manual', 
-        confirm: true,
-        return_url: 'https://orders/new' 
-      })
+      amount: @cart.total_price,
+      customer: customer.id,
+      currency: 'usd',
+      payment_method: params[:payment_method_id],
+      confirmation_method: 'manual', 
+      confirm: true,
+      return_url: 'https://products',
+      # metadata: {
+      #   buyer_name: current_buyer.name 
+      # }
+    })
 
       if payment_intent.status == 'succeeded'
         @cart.update(status: 'paid')
-        redirect_to  new_order_path(@cart), notice: 'Payment successful!'
+        @cart.cart_items.destroy_all
+
+        redirect_to products_path, notice: 'Payment successful!'
       else
         flash[:alert] = 'Payment failed. Please try again.'
-        redirect_to new_payment_path
+        redirect_to payments_new_path
       end
 
     rescue Stripe::CardError => e
       flash[:alert] = e.message
-      redirect_to new_payment_path
+      redirect_to payments_new_path
     end
   end
 
@@ -38,3 +53,7 @@ class PaymentsController < ApplicationController
     @cart = current_buyer.cart
   end
 end
+
+
+
+

@@ -26,8 +26,8 @@ class OrdersController < ApplicationController
           image_url: cart_item.product.image.attached? ? url_for(cart_item.product.image) : nil
         }
       end.to_json)
-      @cart.cart_items.destroy_all
-      redirect_to products_path
+      # @cart.cart_items.destroy_all
+      redirect_to payments_new_path
     else 
       redirect_to new_order_path
     end

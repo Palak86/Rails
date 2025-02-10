@@ -2,6 +2,17 @@ require_relative "boot"
 
 require "rails/all"
 
+
+# ActionDispatch::Callbacks.after do
+#   # Reload the factories
+#   return unless (Rails.env.development? || Rails.env.test?)
+
+#   unless FactoryGirl.factories.blank? # first init will load factories, this should only run on subsequent reloads
+#     FactoryGirl.factories.clear
+#     FactoryGirl.find_definitions
+#   end
+# end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -24,5 +35,7 @@ module Ecommerce
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     # config.factory_bot.definition_file_paths = ["custom/factories"]
+
+    
   end
 end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get "payments/new"
-  get "payments/create"
+   get "payments/new"
+   post "payments/create"
   devise_for :buyers, controllers: {
     registrations: "buyers/registrations",
     sessions: "buyers/sessions"
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
    end
   end
   
-  resources :payments, only: [:new, :create]
+  # resources :payments, only: [:new, :create]
 
 
   resources :categories, only: [:new, :create]

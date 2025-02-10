@@ -1,6 +1,6 @@
 <h1 class="page-title">Complete Payment</h1>
 
-<%= form_with url: payments_path, method: :post, id: 'payment-form', class: 'payment-form' do |form| %>
+<%= form_with url: payments_create_path, method: :post, id: 'payment-form', class: 'payment-form' do |form| %>
   <div class="form-container">
     <div id="card-element" class="form-element">
       <!-- A Stripe Element will be inserted here. -->
