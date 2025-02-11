@@ -98,10 +98,11 @@
     </div>
   </div>
 </nav>
-<div class="container mt-5">
+  <div class="container mt-4">
     <div id="flash-message"></div>
   </div>
-    <%= yield %>
+
+   <%= yield %>
     <script type="text/javascript">
     function showFlashMessage(message, type) {
       var flashDiv = document.getElementById("flash-message");

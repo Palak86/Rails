@@ -164,15 +164,6 @@
       "/home/developer/Downloads/ecommerce_tue/ecommerce_mon/ecommerce_sun/ecommerce/config/initializers/devise.rb": {
         "lines": [
           null,
-          1,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
           null,
           null,
           null,
@@ -586,7 +577,6 @@
           1,
           1,
           1,
-          1,
           null,
           null,
           null,
@@ -643,6 +633,27 @@
           null
         ]
       },
+      "/home/developer/Downloads/ecommerce_tue/ecommerce_mon/ecommerce_sun/ecommerce/spec/support/devise.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/developer/Downloads/ecommerce_tue/ecommerce_mon/ecommerce_sun/ecommerce/spec/support/controller_macros.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
       "/home/developer/Downloads/ecommerce_tue/ecommerce_mon/ecommerce_sun/ecommerce/app/controllers/carts_controller.rb": {
         "lines": [
           1,
@@ -685,8 +696,80 @@
           1,
           null
         ]
+      },
+      "/home/developer/Downloads/ecommerce_tue/ecommerce_mon/ecommerce_sun/ecommerce/config/routes.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/home/developer/Downloads/ecommerce_tue/ecommerce_mon/ecommerce_sun/ecommerce/app/models/seller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
       }
     },
-    "timestamp": 1739192124
+    "timestamp": 1739256406
   }
 }

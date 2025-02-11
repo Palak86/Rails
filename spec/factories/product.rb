@@ -4,7 +4,6 @@ FactoryBot.define do
     price { 199 }
     stock { 19 }
     description { 'smotch proof' }
-    role {'admin'}
     association :category
   end
 end

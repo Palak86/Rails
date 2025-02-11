@@ -13,9 +13,6 @@ class PaymentsController < ApplicationController
       customer = Stripe::Customer.create({
       name: current_buyer.name, 
       email: current_buyer.email,
-      # metadata: {
-      #   user_id: current_buyer.id
-      # }
     })
 
       payment_intent = Stripe::PaymentIntent.create({
@@ -26,21 +23,32 @@ class PaymentsController < ApplicationController
       confirmation_method: 'manual', 
       confirm: true,
       return_url: 'https://products',
-      # metadata: {
-      #   buyer_name: current_buyer.name 
-      # }
     })
 
       if payment_intent.status == 'succeeded'
         @cart.update(status: 'paid')
         @cart.cart_items.destroy_all
 
-        redirect_to products_path, notice: 'Payment successful!'
-      else
-        flash[:alert] = 'Payment failed. Please try again.'
-        redirect_to payments_new_path
-      end
+        invoice_item = Stripe::InvoiceItem.create({
+        customer: customer.id,
+        amount: @cart.total_price,
+        currency: 'usd',
+        description: 'Your purchase from our store',
+      })
 
+      invoice = Stripe::Invoice.create({
+        customer: customer.id,
+        auto_advance: true,
+      })
+
+      Stripe::Invoice.finalize_invoice(invoice.id)
+
+      redirect_to products_path, notice: 'Payment successful! Invoice has been sent to your email.'
+    else
+      flash[:alert] = 'Payment failed. Please try again.'
+      redirect_to payments_new_path
+    end
+    
     rescue Stripe::CardError => e
       flash[:alert] = e.message
       redirect_to payments_new_path
