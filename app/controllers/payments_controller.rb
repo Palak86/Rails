@@ -61,7 +61,3 @@ class PaymentsController < ApplicationController
     @cart = current_buyer.cart
   end
 end
-
-
-
-

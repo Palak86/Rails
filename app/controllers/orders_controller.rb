@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_buyer.orders
-    @all_products = @orders.map { |order| JSON.parse(order.products_data) }.flatten
+    @all_products = @orders.map { |order| JSON.parse(order.products_data) if order.products_data.present? }.flatten
   end
   
   def new
@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
   def create
     @cart=current_buyer.cart
     @order = @cart.orders.create(buyer_id: @cart.buyer_id, **order_params)
-    OrderWelcomeEmailJob.perform_later(@order)
+    #OrderWelcomeEmailJob.perform_later(@order)
     flash[:notice] = "address has been confirmed."
 
 
@@ -26,7 +26,6 @@ class OrdersController < ApplicationController
           image_url: cart_item.product.image.attached? ? url_for(cart_item.product.image) : nil
         }
       end.to_json)
-      # @cart.cart_items.destroy_all
       redirect_to payments_new_path
     else 
       redirect_to new_order_path

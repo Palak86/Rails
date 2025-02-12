@@ -1,44 +1,31 @@
 Rails.application.routes.draw do
-   get "payments/new"
-   post "payments/create"
+  root "products#index"
+  get "payments/new"
+  post "payments/create"
+  resources :orders, only: [:new, :create, :index]
+  resources :categories, only: [:new, :create]
+
   devise_for :buyers, controllers: {
     registrations: "buyers/registrations",
     sessions: "buyers/sessions"
   }
   
   resources :products do
-   member do
-    post 'add_to_cart'
-    get 'profile' 
-   end
+    member do
+      post 'add_to_cart'
+      get 'profile' 
+    end
   end
   
-  # resources :payments, only: [:new, :create]
-
-
-  resources :categories, only: [:new, :create]
-
   resources :carts, only: [:show] do
     resources :cart_items, only: [:destroy] do
       member do
         patch 'decrement'
         patch 'increment'
-        #do
-      #patch 'decrement', on: :member  # This creates the /cart/cart_items/:id/decrement route
+      end
     end
   end
-  end
 
-  devise_for :sellers, controllers: {
-    registrations: "sellers/registrations",
-    session: "sellers/session"
-  }
-  root "products#index"
-
-  resources :orders, only: [:new, :create, :index]
-
-  # post 'place_order', to: 'orders#create', as: 'place_order'
-  # get 'address_form', to: 'orders#address_form', as: 'address_form'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

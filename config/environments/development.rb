@@ -11,6 +11,7 @@ Rails.application.configure do
 
   # config/environments/development.rb
 
+Rails.application.routes.default_url_options[:host] = 'http://localhost:3000'
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' } #here for local you can set localhost:3000 and for production you can set actual your host i.e website.com
   config.action_mailer.delivery_method = :smtp

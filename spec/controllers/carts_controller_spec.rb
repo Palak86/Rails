@@ -6,7 +6,7 @@ RSpec.describe CartsController, type: :controller do
   let!(:buyer) { create(:buyer) }
   let(:cart) { create(:cart, buyer: buyer) }
   before(:each) do
-    binding.pry
+    # binding.pry
     login_buyer(buyer)
   end
   let!(:cart_items) do
@@ -14,7 +14,7 @@ RSpec.describe CartsController, type: :controller do
   end
 
   describe 'GET #show' do
-    binding.pry
+    # binding.pry
     it 'assigns cart and cart_items' do
       get :show  
       expect(assigns(:cart)).to eq(cart)  
